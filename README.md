@@ -35,7 +35,7 @@ resume the **N-th newest** session (default: newest).
 
 <p align="center">
   <!-- Replace this with a real screenshot of your terminal -->
-  <img src="docs/demo.png" alt="codexr interactive demo" width="900">
+  <img src="assets/demo.png" alt="codexr interactive demo" width="900">
 </p>
 
 ---
