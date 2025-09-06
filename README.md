@@ -1,80 +1,110 @@
-# Codex Session Picker (`codexr`)
+<p align="center">
+  <img src="assets/banner.png" alt="Codex Session Picker banner" width="720">
+</p>
 
-Interactive picker to **resume OpenAI Codex CLI sessions** from your local
-`~/.codex/sessions` history. Shows timestamp, line count, size, and full path.
-Use arrow keys to select, press **Enter** to resume.
+<p align="center">
+  <strong>Codex Session Picker</strong> · Interactive CLI to find & resume OpenAI Codex sessions fast.
+</p>
 
-Works best with [`fzf`](https://github.com/junegunn/fzf). Falls back to a simple,
-non-interactive mode if `fzf` is not installed.
+<p align="center">
+  <a href="#installation">Install</a> ·
+  <a href="#usage">Usage</a> ·
+  <a href="#troubleshooting">Troubleshooting</a> ·
+  <a href="#license">License</a>
+</p>
+
+---
+
+## Overview
+
+`codexr` is a tiny helper that scans `~/.codex/sessions` and presents an
+interactive list (via <a href="https://github.com/junegunn/fzf">fzf</a>)
+showing **timestamp**, **line count**, **size**, and the **full path** of each `.jsonl`
+session. Choose with the arrow keys and hit **Enter**—we'll invoke:
+
+```bash
+codex -c experimental_resume="/full/path/to/rollout-....jsonl"
+```
+
+If `fzf` isn't installed, `codexr` falls back to a non‑interactive mode where you can
+resume the **N-th newest** session (default: newest).
+
+---
 
 ## Demo
 
-```
-2025-09-06 16:02:37         3 lines       627 bytes  /home/abouferr/.codex/sessions/2025/09/06/rollout-2025-09-06T16-02-37-9a3e917e-8b51-4853-a7b3-df0f1846dcfc.jsonl
-2025-09-06 15:59:55       290 lines    423603 bytes  /home/abouferr/.codex/sessions/2025/09/06/rollout-2025-09-06T15-06-14-a9e3b0fa-c4e0-44e1-bb8a-22c00b000d8c.jsonl
-2025-09-06 15:04:57         3 lines       627 bytes  /home/abouferr/.codex/sessions/2025/09/06/rollout-2025-09-06T15-04-57-67f6336d-9014-4235-82b9-eda12d9b1d68.jsonl
-```
+<p align="center">
+  <!-- Replace this with a real screenshot of your terminal -->
+  <img src="docs/demo.png" alt="codexr interactive demo" width="900">
+</p>
+
+---
 
 ## Requirements
 
-- Bash (>=4)
-- GNU `find`, `awk`, `wc`, and `date`
-- OpenAI Codex CLI installed and configured
-- Optional (recommended): [`fzf`](https://github.com/junegunn/fzf)
+- Bash (>= 4)
+- GNU `find`, `awk`, `wc`, `date`
+- OpenAI Codex CLI installed & configured
+- Optional (recommended): <a href="https://github.com/junegunn/fzf">fzf</a>
 
 Install `fzf` on Debian/Ubuntu:
 ```bash
 sudo apt update && sudo apt install -y fzf
 ```
 
+---
+
 ## Installation
 
-### Quick install
 ```bash
 git clone https://github.com/<your-username>/codex-session-picker.git
 cd codex-session-picker
+chmod +x install.sh
 ./install.sh
-# Restart your shell or:
-source ~/.bashrc  # or ~/.zshrc
+# Then reload your shell
+source ~/.bashrc   # or: source ~/.zshrc
 ```
 
-This adds a `codexr` function to your shell.
+This adds the `codexr` function to your shell profile.
+
+---
 
 ## Usage
 
-Open the interactive picker:
+Interactive picker (fzf):
 ```bash
 codexr
 ```
 
-- Use **↑ / ↓** to move, **Enter** to resume the selected session.
-- In fallback mode (no `fzf`), the newest session is chosen automatically. Use:
-  ```bash
-  codexr 2   # resume the 2nd newest session
-  codexr 5   # resume the 5th newest session
-  ```
-
-Under the hood, the tool runs:
+Fallback (no fzf): resume the N‑th newest session (1 = newest):
 ```bash
-codex -c experimental_resume="/full/path/to/rollout-....jsonl"
+codexr 2   # resume the 2nd newest
+codexr 5   # resume the 5th newest
 ```
+
+---
 
 ## Troubleshooting
 
-- **No sessions found**  
-  Ensure files exist under `~/.codex/sessions/**/rollout-*.jsonl`.
+**No sessions found**  
+Ensure files exist under `~/.codex/sessions/**/rollout-*.jsonl`.
 
-- **`date -d` not supported**  
-  This script uses GNU `date`. On macOS, install coreutils (`brew install coreutils`)
-  or use a GNU environment.
+**`date -d` not supported**  
+The script uses GNU `date`. On macOS, install coreutils (`brew install coreutils`).
 
-- **Want a different preview?**  
-  Edit `codexr.sh` and change the `--preview` command (e.g., switch `tail` to `head`,
-  or change the number of lines).
+**Change preview content**  
+Edit `codexr.sh` and modify the `--preview` command (e.g. `tail -n 60` → `head -n 50`).
 
-## Uninstall
+---
 
-Remove the sourced block from your `~/.bashrc` / `~/.zshrc`, then delete the repo.
+## Development
+
+- `codexr.sh`: main function & listing logic
+- `install.sh`: appends a small source block to your shell rc file
+- `assets/banner.png`: repository banner
+- `docs/demo.png`: replace with a screenshot of your terminal
+
+---
 
 ## License
 
