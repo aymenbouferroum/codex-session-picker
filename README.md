@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/banner.png" alt="Codex Session Picker banner" width="720">
+  <img src="assets/bannezr.png" alt="Codex Session Picker banner" width="900">
 </p>
 
 <p align="center">
