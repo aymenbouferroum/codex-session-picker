@@ -1,3 +1,5 @@
+
+
 <p align="center">
   <img src="assets/banner.png" alt="Codex Session Picker banner" width="900">
 </p>
@@ -57,7 +59,7 @@ sudo apt update && sudo apt install -y fzf
 ## Installation
 
 ```bash
-git clone https://github.com/<your-username>/codex-session-picker.git
+git clone https://github.com/aymenbouferroum/codex-session-picker.git
 cd codex-session-picker
 chmod +x install.sh
 ./install.sh
